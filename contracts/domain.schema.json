@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "炎症心脏研究衍生分析库领域事件",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_type",
+    "aggregate_type",
+    "aggregate_id",
+    "occurred_at",
+    "version",
+    "payload"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "COHORT_FROZEN",
+        "PLAN_REGISTERED",
+        "RUN_RECORDED",
+        "CLAIM_REVIEWED",
+        "DEPENDENCY_INVALIDATED"
+      ]
+    },
+    "aggregate_type": {
+      "type": "string",
+      "enum": [
+        "cohort_snapshot",
+        "analysis_plan",
+        "run_record",
+        "research_claim"
+      ]
+    },
+    "aggregate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "payload_required_by_event": {
+    "PLAN_REGISTERED": [
+      "variable_versions",
+      "exclusion_rules"
+    ],
+    "RUN_RECORDED": [
+      "input_hash",
+      "parameter_hash"
+    ],
+    "CLAIM_REVIEWED": [
+      "claim_kind",
+      "reviewer_id"
+    ]
+  },
+  "additionalProperties": false
+}
