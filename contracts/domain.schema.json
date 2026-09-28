@@ -20,9 +20,21 @@
       "type": "string",
       "enum": [
         "COHORT_FROZEN",
+        "DATA_ASSET_VERSIONED",
+        "ACCESS_GRANTED",
+        "ACCESS_REVOKED",
+        "WITHDRAWAL_RECEIVED",
+        "PARTICIPANT_EXCLUDED",
+        "QC_RULE_CORRECTED",
         "PLAN_REGISTERED",
+        "QUOTA_POOL_OPENED",
+        "SLOT_RESERVED",
+        "SLOT_RELEASED",
         "RUN_RECORDED",
+        "RUN_QUARANTINED",
         "CLAIM_REVIEWED",
+        "CLAIM_ISSUED",
+        "MATERIAL_PUBLISHED",
         "DEPENDENCY_INVALIDATED"
       ]
     },
@@ -30,9 +42,14 @@
       "type": "string",
       "enum": [
         "cohort_snapshot",
+        "data_asset",
+        "participant",
+        "access_grant",
         "analysis_plan",
+        "quota_pool",
         "run_record",
-        "research_claim"
+        "research_claim",
+        "public_material"
       ]
     },
     "aggregate_id": {
@@ -52,18 +69,96 @@
     }
   },
   "payload_required_by_event": {
+    "COHORT_FROZEN": [
+      "definition_hash"
+    ],
+    "DATA_ASSET_VERSIONED": [
+      "asset_kind",
+      "asset_version",
+      "fingerprint"
+    ],
+    "ACCESS_GRANTED": [
+      "subject_id",
+      "asset_id"
+    ],
+    "ACCESS_REVOKED": [
+      "subject_id",
+      "asset_id"
+    ],
+    "WITHDRAWAL_RECEIVED": [
+      "participant_id"
+    ],
+    "PARTICIPANT_EXCLUDED": [
+      "participant_id",
+      "reason_code",
+      "rule_version"
+    ],
+    "QC_RULE_CORRECTED": [
+      "asset_id",
+      "old_version",
+      "new_version"
+    ],
     "PLAN_REGISTERED": [
       "variable_versions",
-      "exclusion_rules"
+      "exclusion_rules",
+      "cohort_id",
+      "code_version"
+    ],
+    "QUOTA_POOL_OPENED": [
+      "capacity"
+    ],
+    "SLOT_RESERVED": [
+      "quota_pool_id",
+      "holder_id",
+      "slot_count"
+    ],
+    "SLOT_RELEASED": [
+      "quota_pool_id",
+      "holder_id",
+      "slot_count"
     ],
     "RUN_RECORDED": [
       "input_hash",
-      "parameter_hash"
+      "parameter_hash",
+      "run_receipt",
+      "plan_id"
+    ],
+    "RUN_QUARANTINED": [
+      "run_receipt",
+      "reason_code"
     ],
     "CLAIM_REVIEWED": [
       "claim_kind",
       "reviewer_id"
+    ],
+    "CLAIM_ISSUED": [
+      "claim_kind",
+      "run_id",
+      "statement_hash",
+      "frozen_references"
+    ],
+    "MATERIAL_PUBLISHED": [
+      "material_kind",
+      "frozen_references"
+    ],
+    "DEPENDENCY_INVALIDATED": [
+      "reason_code",
+      "source_event_id"
     ]
   },
+  "claim_kinds": [
+    "association",
+    "causal",
+    "mechanism_provisional"
+  ],
+  "asset_kinds": [
+    "variable_dictionary",
+    "exclusion_rule_set",
+    "marker_batch",
+    "imaging_qc",
+    "genetic_instrument",
+    "covariate_scheme",
+    "cohort_roster"
+  ],
   "additionalProperties": false
 }

@@ -1,5 +1,5 @@
 [project]
 name = "inflammation-study"
 version = "0.1.0"
-description = "炎症心脏研究衍生分析库领域契约"
+description = "炎症心脏研究衍生分析登记服务：事件契约、谱系、失效级联与最小追溯"
 requires-python = ">=3.11"
