@@ -20,19 +20,29 @@
       "type": "string",
       "enum": [
         "COHORT_FROZEN",
+        "ASSET_REGISTERED",
         "PLAN_REGISTERED",
+        "SLOT_GRANTED",
+        "SLOT_RELEASED",
         "RUN_RECORDED",
+        "RUN_QUARANTINED",
+        "RESULT_ISSUED",
         "CLAIM_REVIEWED",
-        "DEPENDENCY_INVALIDATED"
+        "DEPENDENCY_INVALIDATED",
+        "MATERIAL_PUBLISHED",
+        "WITHDRAWAL_RECEIVED"
       ]
     },
     "aggregate_type": {
       "type": "string",
       "enum": [
         "cohort_snapshot",
+        "data_asset",
         "analysis_plan",
         "run_record",
-        "research_claim"
+        "research_claim",
+        "public_material",
+        "participant_withdrawal"
       ]
     },
     "aggregate_id": {
@@ -56,13 +66,81 @@
       "variable_versions",
       "exclusion_rules"
     ],
+    "ASSET_REGISTERED": [
+      "asset_kind",
+      "fingerprint",
+      "cohort_id"
+    ],
+    "SLOT_GRANTED": [
+      "allocation_id"
+    ],
+    "SLOT_RELEASED": [
+      "allocation_id"
+    ],
     "RUN_RECORDED": [
+      "receipt_id",
       "input_hash",
-      "parameter_hash"
+      "parameter_hash",
+      "code_version",
+      "plan_id",
+      "cohort_id",
+      "allocation_id"
+    ],
+    "RUN_QUARANTINED": [
+      "receipt_id",
+      "submitted_input_hash",
+      "submitted_parameter_hash",
+      "stored_event_id",
+      "reason"
+    ],
+    "RESULT_ISSUED": [
+      "result_version",
+      "issued_by"
     ],
     "CLAIM_REVIEWED": [
       "claim_kind",
-      "reviewer_id"
+      "reviewer_id",
+      "decision",
+      "frozen_result_version",
+      "claim_text",
+      "run_id"
+    ],
+    "DEPENDENCY_INVALIDATED": [
+      "reason_kind",
+      "source_event_id"
+    ],
+    "MATERIAL_PUBLISHED": [
+      "claim_id",
+      "frozen_result_version",
+      "title"
+    ],
+    "WITHDRAWAL_RECEIVED": [
+      "participant_ref",
+      "cohort_id"
+    ]
+  },
+  "payload_enums": {
+    "asset_kind": [
+      "variable_dictionary",
+      "exclusion_reason",
+      "biomarker_batch",
+      "imaging_qc",
+      "genetic_instrument",
+      "covariate_scheme"
+    ],
+    "claim_kind": [
+      "correlation_association",
+      "causal_inference",
+      "mechanism_provisional"
+    ],
+    "decision": [
+      "accepted",
+      "returned"
+    ],
+    "reason_kind": [
+      "participant_withdrawal",
+      "qc_rule_correction",
+      "upstream_invalidation"
     ]
   },
   "additionalProperties": false
